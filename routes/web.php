@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Password;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -10,7 +11,6 @@ use App\Http\Controllers\LogoutController;
 use Illuminate\Routing\RouteFileRegistrar;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\RedirectController;
-use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +24,12 @@ use App\Http\Controllers\RegisterController;
 */
 
 
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Admin\DoctorController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\Client\AppointmentController;
-
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Carbon;
 
 // HANDLE REDIRECT WHEN ACCOUNT LOGIN TO HOME
 Route::get('/', [RedirectController::class, "index"]);
@@ -79,7 +82,25 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::get("/account/delete/{id}", [AccountController::class, "handleDeleteAccount"]);
 
     // GET APPOINTMENT VIEW
-    Route::get("/appointments", [AppointmentController::class, 'index']);
+    Route::get("/appointments", [AppointmentController::class, 'index'])->name('appointments');
     // UPDATE APPOINTMENT STATUS
     Route::put("/appointments/update/{id}", [AppointmentController::class, 'handleUpdaStatusAppointment']);
 });
+
+// PASSWORD RESET
+Route::get("/password/reset", [ResetPasswordController::class, "index"]);
+Route::post("/password/reset", [ResetPasswordController::class, "handleSendLinkResetPassword"]);
+Route::get('password/reset/{token}', function (Request $request, $token) {
+    $tokenVerify = DB::table("password_resets")->where("token", $token)->get();
+    if (count($tokenVerify) == 0 || Carbon::now()->subMinutes(1) > $tokenVerify[0]->created_at) {
+        Alert::success("Messege", "Token has expired, please resend email for verification !");
+        return redirect('/password/reset');
+    }
+    return view("client.reset_password.reset_password", ["email" => $tokenVerify[0]->email, "token" => $tokenVerify[0]->token]);
+})->name('password.reset');
+Route::post('password/reset/{token}/{email}', [ResetPasswordController::class, "handleResetPassword"]);
+
+
+// GET PROFILE
+
+Route::get("/profile", [ProfileController::class, "index"]);

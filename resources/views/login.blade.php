@@ -35,6 +35,7 @@
                 border-bottom-right-radius: .3rem;
             }
         }
+
     </style>
 </head>
 
@@ -49,8 +50,7 @@
                             <div class="col-lg-6">
                                 <div class="card-body p-md-5 mx-md-4">
                                     <div class="text-center">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                                            style="width: 185px;" alt="logo">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp" style="width: 185px;" alt="logo">
                                         <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
                                     </div>
 
@@ -62,8 +62,7 @@
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example11">Username</label>
-                                            <input type="email" id="form2Example11" class="form-control" name="email"
-                                                placeholder="Enter email" value="{{ old('email') }}" />
+                                            <input type="email" id="form2Example11" class="form-control" name="email" placeholder="Enter email" value="{{ old('email') }}" />
                                             @error('email')
                                             <div class="error">{{ $message }}</div>
                                             @enderror
@@ -71,26 +70,21 @@
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example22">Password</label>
-                                            <input type="password" id="form2Example22" class="form-control"
-                                                name="password" value="{{ old('password') }}"
-                                                placeholder="Enter Password" />
+                                            <input type="password" id="form2Example22" class="form-control" name="password" value="{{ old('password') }}" placeholder="Enter Password" />
                                             @error('password')
                                             <div class="error">{{ $message }}</div>
                                             @enderror
                                         </div>
 
                                         <div class="text-center pt-1 mb-5 pb-1">
-                                            <button type="submit"
-                                                class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-                                                type="button">Log
+                                            <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">Log
                                                 in</button>
-                                            <a class="text-muted" href="#!">Forgot password?</a>
+                                            <a class="text-muted" href="{{ url('password/reset') }}">Forgot password?</a>
                                         </div>
 
                                         <div class="d-flex align-items-center justify-content-center pb-4">
                                             <p class="mb-0 me-2">Don't have an account?</p>
-                                            <a href="{{ route('register') }}"><button type="button"
-                                                    class="btn btn-outline-danger">Create
+                                            <a href="{{ route('register') }}"><button type="button" class="btn btn-outline-danger">Create
                                                     new</button></a>
                                         </div>
 

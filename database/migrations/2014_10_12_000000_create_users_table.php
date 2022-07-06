@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('email')->unique();
             $table->unsignedBigInteger('roleId')->default(2);
+            $table->string("avatar")->default("https://i.pinimg.com/originals/8e/34/e3/8e34e3e4a570228fecaf7ce3c81328f0.jpg");
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

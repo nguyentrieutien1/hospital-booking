@@ -3,6 +3,8 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class profile extends Component
 {
@@ -11,8 +13,10 @@ class profile extends Component
      *
      * @return void
      */
+    public $user = [];
     public function __construct()
     {
+        $this->user = DB::table("users")->where("id", Auth::user()->id)->get();
     }
 
     /**

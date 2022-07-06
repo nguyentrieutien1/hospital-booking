@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\SpecialistSeeder;
+use App\Http\Controllers\Admin\Specialist;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
@@ -17,7 +19,9 @@ class DatabaseSeeder extends Seeder
     {
         $user = new UserSeeder;
         $role = new RoleSeeder;
+        $specialist = new SpecialistSeeder;
         $role->run();
         $user->run();
+        $specialist->run();
     }
 }

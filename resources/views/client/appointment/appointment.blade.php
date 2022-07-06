@@ -23,7 +23,7 @@
 <style>
     .table-container {
 
-        margin: 150px auto !important;
+        margin: 200px auto !important;
     }
 
     tbody button {
@@ -41,7 +41,9 @@
     <!-- End Header -->
     <!-- ======= Hero Section ======= -->
     <div class="row ">
-        <div class="col-8 table-container">
+        <div class="col-7 table-container">
+            @if (count($appointments) > 0)
+            <h4>Appointment List</h4>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -78,6 +80,10 @@
                     @endforeach
                 </tbody>
             </table>
+
+            @else
+            <h1 class="text-center">EMPTY APPOINTMENTS LIST</h1>
+            @endif
 
         </div>
     </div>
